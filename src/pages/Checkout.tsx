@@ -24,7 +24,7 @@ const Checkout = () => {
 
   if (!selectedRoute || !selectedSource || !selectedDestination) return null;
 
-  const fare = getFareDetails(selectedSource.sequence, selectedDestination.sequence, selectedBusType, ticketQuantity);
+  const fare = getFareDetails(selectedRoute.routeNumber, selectedBusType, ticketQuantity);
 
   const handleConfirmPurchase = () => {
     // Generate synthetic Ticket ID

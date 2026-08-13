@@ -67,9 +67,8 @@ const BuyTickets = () => {
 
   // Recalculate Fare dynamically using strict pricing rules
   useEffect(() => {
-    if (selectedRoute) {
-      const routeNum = selectedRoute.routeNumber;
-      const fareInfo = getFareDetails(routeNum, selectedBusType, ticketQuantity);
+    if (selectedSource && selectedDestination) {
+      const fareInfo = getFareDetails(selectedRoute.routeNumber, selectedBusType, ticketQuantity);
       setFare(fareInfo);
     }
   }, [selectedRoute, selectedBusType, ticketQuantity]);
