@@ -3,12 +3,34 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { getFareDetails } from '../data/fares';
+import { ALL_ROUTES } from '../data/routes';
 import './BuyTickets.css';
+
+// Custom Icons
+const RouteIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="bwc-icon" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 7V13C8 15.2091 9.79086 17 12 17h0c2.2091 0 4-1.7909 4-4V7" stroke="black" strokeWidth="2" strokeLinecap="round"/>
+    <circle cx="8" cy="5" r="2" fill="black"/><circle cx="16" cy="5" r="2" fill="black"/>
+  </svg>
+);
+
+const DotIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" className="bwc-icon">
+    <circle cx="12" cy="12" r="5" fill="black" />
+  </svg>
+);
+
+const PinIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="black" className="bwc-icon" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" />
+  </svg>
+);
 
 const BuyTickets = () => {
   const navigate = useNavigate();
   const { 
     selectedRoute, 
+    setSelectedRoute,
     selectedSource, 
     setSelectedSource, 
     selectedDestination, 
@@ -19,15 +41,17 @@ const BuyTickets = () => {
     setTicketQuantity
   } = useAppContext();
 
-  const [fare, setFare] = useState({ original: 0, discounted: 0, discountPercent: 0 });
-  const [timeLeft, setTimeLeft] = useState(178); // 02:58 in seconds
+  const [fare, setFare] = useState({ original: 0, discounted: 0, discountPercent: 10 });
+  const [timeLeft, setTimeLeft] = useState(170); // 02:50 timer
 
+  // Default to first route if none selected
   useEffect(() => {
-    if (!selectedRoute) {
-      navigate('/');
+    if (!selectedRoute && ALL_ROUTES.length > 0) {
+      setSelectedRoute(ALL_ROUTES[0]);
     }
-  }, [selectedRoute, navigate]);
+  }, [selectedRoute, setSelectedRoute]);
 
+  // Countdown timer
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
@@ -41,106 +65,46 @@ const BuyTickets = () => {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
+  // Recalculate Fare dynamically using strict pricing rules
   useEffect(() => {
-    if (selectedSource && selectedDestination) {
-      const idx1 = selectedSource.sequence;
-      const idx2 = selectedDestination.sequence;
-      const fareInfo = getFareDetails(idx1, idx2, selectedBusType, ticketQuantity);
+    if (selectedRoute) {
+      const routeNum = selectedRoute.routeNumber;
+      const fareInfo = getFareDetails(routeNum, selectedBusType, ticketQuantity);
       setFare(fareInfo);
-    } else {
-      setFare({ original: 0, discounted: 0, discountPercent: 0 });
     }
-  }, [selectedSource, selectedDestination, selectedBusType, ticketQuantity]);
+  }, [selectedRoute, selectedBusType, ticketQuantity]);
 
   if (!selectedRoute) return null;
 
+  // Filter destination stops to only show stops after the selected source stop
   const validDestinations = selectedSource 
     ? selectedRoute.stops.filter(s => s.sequence > selectedSource.sequence)
     : selectedRoute.stops;
 
-  const handleSourceChange = (id: string) => {
-    const stop = selectedRoute.stops.find(s => s.id === id);
+  const handleRouteChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const route = ALL_ROUTES.find(r => r.id === e.target.value);
+    if (route) {
+      setSelectedRoute(route);
+      setSelectedSource(null);
+      setSelectedDestination(null);
+    }
+  };
+
+  const handleSourceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const stop = selectedRoute.stops.find(s => s.id === e.target.value);
     setSelectedSource(stop || null);
     if (stop && selectedDestination && selectedDestination.sequence <= stop.sequence) {
       setSelectedDestination(null);
     }
   };
 
-  const handleDestinationChange = (id: string) => {
-    const stop = selectedRoute.stops.find(s => s.id === id);
+  const handleDestinationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const stop = selectedRoute.stops.find(s => s.id === e.target.value);
     setSelectedDestination(stop || null);
   };
 
   const canProceed = selectedSource && selectedDestination;
   const formatFare = (num: number) => num.toFixed(1);
-
-  // Custom SVGs matching the app
-  const RouteIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="bwc-icon" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 7V13C8 15.2091 9.79086 17 12 17h0c2.2091 0 4-1.7909 4-4V7" stroke="black" strokeWidth="2" strokeLinecap="round"/>
-      <circle cx="8" cy="5" r="2" fill="black"/><circle cx="16" cy="5" r="2" fill="black"/>
-    </svg>
-  );
-
-  const DotIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" className="bwc-icon">
-      <circle cx="12" cy="12" r="5" fill="black" />
-    </svg>
-  );
-
-  const PinIcon = () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="black" className="bwc-icon" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" />
-    </svg>
-  );
-
-  const StopSelector = ({ icon, placeholder, value, onChange, options, disabled }: any) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
-
-    const filteredOptions = options.filter((opt: any) => 
-      opt.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const displayValue = options.find((o: any) => o.id === value)?.name || '';
-
-    return (
-      <div className={`bwc-input-box ${isOpen ? 'focused' : ''} ${disabled ? 'disabled' : ''}`}>
-        {icon}
-        <input 
-          type="text"
-          className="bwc-custom-input"
-          placeholder={placeholder}
-          value={isOpen ? searchTerm : displayValue}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onFocus={() => {
-            if (disabled) return;
-            setIsOpen(true);
-            setSearchTerm('');
-          }}
-          onBlur={() => setTimeout(() => { setIsOpen(false); setSearchTerm(''); }, 200)}
-          disabled={disabled}
-        />
-        {isOpen && (
-          <div className="bwc-dropdown">
-            {filteredOptions.map((opt: any) => (
-              <div 
-                key={opt.id} 
-                className="bwc-dropdown-item"
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  onChange(opt.id);
-                  setIsOpen(false);
-                }}
-              >
-                {opt.name}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  };
 
   return (
     <div className="page-buy">
@@ -152,55 +116,75 @@ const BuyTickets = () => {
       </div>
 
       <div className="buy-timer-container">
-        <div className="buy-timer-pill">
-          Pay within {formatTime(timeLeft)}
-        </div>
+        <div className="buy-timer-pill">Pay within {formatTime(timeLeft)}</div>
       </div>
 
       <div className="buy-card-container">
         <div className="buy-white-card">
+          {/* Route Selector */}
           <div className="bwc-section-title">Route Info</div>
           <div className="bwc-input-box">
             <RouteIcon />
-            <input 
-              type="text" 
-              className="bwc-custom-input" 
-              value={`${selectedRoute.routeNumber}-${selectedRoute.direction}`}
-              readOnly
-            />
+            <select 
+              className="bwc-select" 
+              value={selectedRoute.id} 
+              onChange={handleRouteChange}
+            >
+              {ALL_ROUTES.map(r => (
+                <option key={r.id} value={r.id}>
+                  {r.routeNumber} - {r.direction}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="bwc-section-title" style={{ marginTop: '20px' }}>From - To</div>
           
-          <StopSelector
-            icon={<DotIcon />}
-            placeholder="Source Stop"
-            value={selectedSource?.id || ''}
-            onChange={handleSourceChange}
-            options={selectedRoute.stops}
-          />
+          {/* Source Stop Selector */}
+          <div className="bwc-input-box">
+            <DotIcon />
+            <select 
+              className="bwc-select" 
+              value={selectedSource?.id || ''} 
+              onChange={handleSourceChange}
+            >
+              <option value="" disabled hidden>Source Stop</option>
+              {selectedRoute.stops.map(s => (
+                <option key={s.id} value={s.id}>{s.name}</option>
+              ))}
+            </select>
+          </div>
           
-          <div style={{ marginTop: '12px' }}>
-            <StopSelector
-              icon={<PinIcon />}
-              placeholder="Destination Stop"
-              value={selectedDestination?.id || ''}
+          {/* Destination Stop Selector */}
+          <div className="bwc-input-box" style={{ marginTop: '12px' }}>
+            <PinIcon />
+            <select 
+              className="bwc-select" 
+              value={selectedDestination?.id || ''} 
               onChange={handleDestinationChange}
-              options={validDestinations}
               disabled={!selectedSource}
-            />
+            >
+              <option value="" disabled hidden>
+                {!selectedSource ? 'Select Source First' : 'Destination Stop'}
+              </option>
+              {validDestinations.map(s => (
+                <option key={s.id} value={s.id}>{s.name}</option>
+              ))}
+            </select>
           </div>
 
+          {/* AC / Non-AC Toggles */}
           <div className="bwc-section-title" style={{ marginTop: '24px' }}>Bus Type</div>
           <div className="bwc-bus-type-container">
             <button 
+              type="button"
               className={`bwc-bt-btn ${selectedBusType === 'AC' ? 'active-ac' : ''}`}
               onClick={() => setSelectedBusType('AC')}
-              disabled={selectedRoute.busType === 'NON_AC'}
             >
               AC
             </button>
             <button 
+              type="button"
               className={`bwc-bt-btn ${selectedBusType === 'NON_AC' ? 'active-nonac' : ''}`}
               onClick={() => setSelectedBusType('NON_AC')}
             >
@@ -210,6 +194,7 @@ const BuyTickets = () => {
         </div>
       </div>
       
+      {/* Bottom Action Sheet */}
       <div className="buy-bottom-sheet">
         <div className="bbs-section-title">Number of tickets</div>
         <div className="bbs-qty-toggles">
@@ -227,18 +212,12 @@ const BuyTickets = () => {
         <div className="bbs-section-title">Amount Payable</div>
         <div className="bbs-price-row">
           <div className="bbs-price-left">
-            {canProceed && (
-              <>
-                <span className="bbs-price-old">₹{formatFare(fare.original)}</span>
-                <span className="bbs-price-new">₹{formatFare(fare.discounted)}</span>
-              </>
-            )}
+            <span className="bbs-price-old">₹{formatFare(fare.original)}</span>
+            <span className="bbs-price-new">₹{formatFare(fare.discounted)}</span>
           </div>
-          {canProceed && fare.discountPercent > 0 && (
-            <div className="bbs-discount-badge">
-              {fare.discountPercent.toFixed(1)}% off
-            </div>
-          )}
+          <div className="bbs-discount-badge">
+            10.0% off
+          </div>
         </div>
 
         <div className="bbs-buy-action-row">
