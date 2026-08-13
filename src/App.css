@@ -1,0 +1,13 @@
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+  padding-bottom: 70px; /* Leave space for bottom nav */
+}
+
+/* Ensure no horizontal scroll */
+body, html {
+  overflow-x: hidden;
+}

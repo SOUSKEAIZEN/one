@@ -1,0 +1,82 @@
+.page-trip-planner {
+  padding: 0;
+  background-color: var(--background);
+}
+
+.trip-planner-content {
+  padding: 16px;
+  padding-bottom: 90px;
+}
+
+.planner-inputs {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.input-with-icon:first-child {
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.input-with-icon input {
+  border: none;
+  background: none;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+  color: var(--text-main);
+}
+
+.swap-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.planner-results h3 {
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.planner-route-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.text-muted {
+  color: var(--text-secondary);
+}
+
+.planner-route-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-secondary);
+  border-top: 1px dashed var(--border);
+  padding-top: 12px;
+}

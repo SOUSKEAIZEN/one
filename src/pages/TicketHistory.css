@@ -1,0 +1,102 @@
+.page-history {
+  padding: 0;
+  background-color: var(--background);
+}
+
+.history-content {
+  padding: 16px;
+  padding-bottom: 90px;
+}
+
+.no-tickets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: var(--text-secondary);
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.ticket-section {
+  margin-bottom: 24px;
+}
+
+.ticket-section h3 {
+  font-size: 16px;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-card {
+  background-color: var(--surface);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  border-left: 4px solid var(--primary);
+  transition: transform 0.1s;
+}
+
+.history-card:active {
+  transform: scale(0.98);
+}
+
+.history-card.expired {
+  border-left-color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.h-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.h-route {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+}
+
+.h-status {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0.05);
+}
+
+.text-success {
+  color: #2E7D32;
+}
+
+.text-error {
+  color: #C62828;
+}
+
+.h-path {
+  font-size: 14px;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.h-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.h-fare {
+  font-weight: 600;
+  color: var(--text-main);
+}

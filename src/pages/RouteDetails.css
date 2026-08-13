@@ -1,0 +1,168 @@
+.page-route-details {
+  padding: 0;
+  background-color: var(--background);
+}
+
+.route-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: var(--primary);
+  color: white;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.route-header h2 {
+  color: white;
+  margin: 0;
+  font-size: 18px;
+}
+
+.route-header .back-btn {
+  color: white;
+}
+
+.route-info-card {
+  margin: 16px;
+}
+
+.route-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.route-badge-large {
+  background-color: var(--primary);
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.route-direction-large {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.route-meta {
+  display: flex;
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stops-timeline {
+  background-color: var(--surface);
+  padding: 16px;
+  margin-bottom: 80px; /* Space for book button */
+}
+
+.stops-title {
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-item {
+  display: flex;
+  min-height: 60px;
+}
+
+.timeline-left {
+  width: 70px;
+  text-align: right;
+  padding-right: 12px;
+  padding-top: 2px;
+}
+
+.time {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.timeline-center {
+  width: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.line-segment {
+  width: 2px;
+  height: 100%;
+  background-color: var(--border);
+  position: absolute;
+  top: 10px;
+}
+
+.timeline-item:last-child .line-segment {
+  display: none;
+}
+
+.node {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid var(--border);
+  z-index: 2;
+  margin-top: 4px;
+}
+
+.node-primary {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.timeline-right {
+  flex: 1;
+  padding-left: 16px;
+  padding-bottom: 20px;
+}
+
+.stop-name-time {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.stop-seq {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.book-btn-container {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 412px;
+  padding: 12px 16px;
+  background: linear-gradient(to top, rgba(255,255,255,1) 70%, rgba(255,255,255,0));
+  z-index: 20;
+}

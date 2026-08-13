@@ -1,0 +1,169 @@
+.page-buy {
+  padding: 0;
+  background-color: var(--background);
+}
+
+.buy-content {
+  padding: 16px;
+  padding-bottom: 90px; /* Space for fixed bottom bar */
+}
+
+.route-summary-card {
+  margin-bottom: 16px;
+}
+
+.route-summary-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.route-num {
+  background-color: var(--primary);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.route-dir {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-field {
+  appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+  background-color: #F8F8F8;
+  border-color: #E0E0E0;
+}
+
+.select-field:disabled {
+  background-color: #F0F0F0;
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.select-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--text-secondary);
+}
+
+.segmented-control {
+  display: flex;
+  background-color: #F0F0F0;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.segment-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+}
+
+.segment-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.segment-btn.active {
+  background-color: white;
+  color: var(--primary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.tickets-qty .segment-btn {
+  font-size: 18px;
+}
+
+.fare-breakdown-card {
+  background-color: #FAFAFA;
+  border: 1px solid var(--border);
+}
+
+.fare-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.discount-row {
+  margin-bottom: 0;
+  border-top: 1px dashed var(--border);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.fare-label {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.fare-original {
+  font-size: 16px;
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.fare-discount-badge {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fare-discounted {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.bottom-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 412px;
+  padding: 16px;
+  background-color: var(--surface);
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+  z-index: 100;
+  border-top: 1px solid var(--border);
+}
+
+.btn-large {
+  padding: 16px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}

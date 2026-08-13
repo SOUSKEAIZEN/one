@@ -1,0 +1,86 @@
+.page-hub {
+  padding: 0;
+  background-color: var(--background);
+}
+
+.inline-icon {
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.hub-content {
+  padding: 16px;
+  padding-bottom: 90px;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+.mt-3 {
+  margin-top: 12px;
+}
+
+.hub-card {
+  padding: 16px;
+}
+
+.hub-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.hub-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-main);
+}
+
+.hub-distance {
+  font-size: 13px;
+  color: var(--text-secondary);
+  background-color: #F0F0F0;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.hub-card-middle {
+  margin-bottom: 12px;
+}
+
+.availability {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.availability.available {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+
+.availability.occupied {
+  background-color: #FFEBEE;
+  color: #C62828;
+}
+
+.hub-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-top: 1px dashed var(--border);
+  padding-top: 12px;
+}
+
+.hub-nav-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+}
