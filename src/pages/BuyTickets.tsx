@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Route as RouteIcon, Circle, MapPin } from 'lucide-react';
+import { ArrowLeft, Circle, MapPin, GitCommit } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { getFareDetails } from '../data/fares';
 import './BuyTickets.css';
@@ -20,12 +20,26 @@ const BuyTickets = () => {
   } = useAppContext();
 
   const [fare, setFare] = useState({ original: 0, discounted: 0, discountPercent: 0 });
+  const [timeLeft, setTimeLeft] = useState(157); // 02:37 in seconds
 
   useEffect(() => {
     if (!selectedRoute) {
       navigate('/');
     }
   }, [selectedRoute, navigate]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
 
   useEffect(() => {
     if (selectedSource && selectedDestination) {
@@ -100,11 +114,11 @@ const BuyTickets = () => {
             setSearchTerm(''); // Clear to show all/search new
           }}
           onBlur={() => {
-            // Delay to allow click to register
+            // Using a slightly longer timeout in case onMouseDown doesn't fire on some mobile browsers
             setTimeout(() => {
               setIsOpen(false);
               setSearchTerm('');
-            }, 200);
+            }, 250);
           }}
           disabled={disabled}
         />
@@ -115,13 +129,21 @@ const BuyTickets = () => {
                 <div 
                   key={opt.id} 
                   className="bwc-dropdown-item"
-                  onClick={() => onChange(opt.id)}
+                  onMouseDown={(e) => {
+                    e.preventDefault(); // Prevent input onBlur from firing first
+                    onChange(opt.id);
+                    setIsOpen(false);
+                  }}
+                  onClick={() => {
+                    onChange(opt.id);
+                    setIsOpen(false);
+                  }}
                 >
                   {opt.name}
                 </div>
               ))
             ) : (
-              <div className="bwc-dropdown-item" style={{ color: '#9E9E9E' }}>No stops found</div>
+              <div className="bwc-dropdown-item" style={{ color: 'var(--text-secondary)' }}>No stops found</div>
             )}
           </div>
         )}
@@ -140,7 +162,7 @@ const BuyTickets = () => {
 
       <div className="buy-timer-container">
         <div className="buy-timer-pill">
-          Pay within 02:34
+          Pay within {formatTime(timeLeft)}
         </div>
       </div>
 
@@ -148,7 +170,7 @@ const BuyTickets = () => {
         <div className="buy-white-card">
           <div className="bwc-section-title">Route Info</div>
           <div className="bwc-input-box">
-            <RouteIcon size={20} className="bwc-icon" />
+            <GitCommit size={20} className="bwc-icon" style={{ transform: 'rotate(90deg)' }} />
             <div className="bwc-text">
               {selectedRoute.routeNumber}-{selectedRoute.direction.substring(0, 30)}
             </div>
