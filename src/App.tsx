@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import BottomNavigation from './components/BottomNavigation';
-import TopBar from './components/TopBar';
 import DemoIndicator from './components/DemoIndicator';
 import BusHome from './pages/BusHome';
 import BusSearch from './pages/BusSearch';
@@ -22,7 +21,6 @@ function App() {
     <AppProvider>
       <BrowserRouter>
         <DemoIndicator />
-        <TopBar />
         <main className="main-content">
           <Routes>
             <Route path="/" element={<BusHome />} />
@@ -39,7 +37,12 @@ function App() {
             <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
-        <BottomNavigation />
+        <div className="bottom-nav-container">
+          <BottomNavigation />
+          <div className="global-footer-banner">
+            Powered by MetroGo, DoT & ARF (Demo)
+          </div>
+        </div>
       </BrowserRouter>
     </AppProvider>
   );

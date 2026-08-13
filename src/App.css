@@ -1,10 +1,28 @@
 .main-content {
   flex: 1;
+  overflow-y: auto;
+  padding-bottom: 70px; /* Space for bottom nav and footer */
+}
+
+.bottom-nav-container {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 412px;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  position: relative;
-  padding-bottom: 70px; /* Leave space for bottom nav */
+}
+
+.global-footer-banner {
+  background-color: #B71C1C;
+  color: white;
+  text-align: center;
+  font-size: 10px;
+  padding: 4px;
+  font-weight: 500;
 }
 
 /* Ensure no horizontal scroll */
