@@ -2,47 +2,56 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background-color: var(--surface);
-  box-shadow: var(--shadow-sm);
-  z-index: 100;
+  height: 60px;
+  padding: 0 16px;
+  /* Simulating the red geometric pattern from the screenshot */
+  background: 
+    linear-gradient(135deg, rgba(167,29,49,0.9) 0%, rgba(216,43,57,0.9) 50%, rgba(144,22,37,0.9) 100%),
+    repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.03) 10px, rgba(0,0,0,0.03) 20px);
+  background-color: #d32f2f;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.top-bar-left {
+  width: 40px; /* Balances the layout so logo stays exactly center */
 }
 
 .logo-container {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-
-.logo-icon {
-  background-color: var(--primary);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  height: 100%;
 }
 
-.logo-text {
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--primary);
-  letter-spacing: -0.5px;
+.one-logo-svg {
+  height: 45px;
+  width: 120px;
 }
 
 .top-actions {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  width: 40px;
+  justify-content: flex-end;
 }
 
 .icon-btn {
   background: none;
   border: none;
-  color: var(--text-main);
+  padding: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.icon-btn:active {
+  background-color: rgba(255, 255, 255, 0.2);
 }

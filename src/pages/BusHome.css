@@ -3,32 +3,28 @@
   flex-direction: column;
   height: 100vh;
   position: relative;
-  background-color: var(--light-bg);
+  background-color: #f0f0f0;
   overflow: hidden;
 }
 
 /* 
-  The geometric header requires a multi-layered background or SVG.
-  We will simulate the triangles with a complex CSS background and a curved bottom edge.
+  Geometric header utilizing the faceted red gradient
 */
 .home-geometric-header {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 180px;
+  height: 160px;
   background: 
-    linear-gradient(135deg, rgba(136, 14, 79, 0.9) 0%, rgba(183, 28, 28, 0.9) 100%),
-    repeating-linear-gradient(45deg, #6A1B9A 0px, #6A1B9A 40px, transparent 40px, transparent 80px),
-    repeating-linear-gradient(-45deg, #C2185B 0px, #C2185B 60px, transparent 60px, transparent 120px);
-  background-color: var(--deep-maroon);
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
+    linear-gradient(135deg, rgba(167,29,49,0.95) 0%, rgba(216,43,57,0.95) 50%, rgba(144,22,37,0.95) 100%),
+    repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.04) 10px, rgba(0,0,0,0.04) 20px);
+  background-color: #d32f2f;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  padding-top: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding-top: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 
 .hgh-top-row {
@@ -36,31 +32,24 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .hgh-logo {
-  font-size: 28px;
-  font-weight: 900;
-  color: var(--card-white);
-  letter-spacing: -1px;
-  /* Fake the artistic flair of ONE logo */
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.hgh-logo-flair {
-  font-size: 10px;
-  margin-left: 4px;
-  font-weight: 400;
-  letter-spacing: 0;
+.one-logo-svg {
+  height: 48px;
+  width: 120px;
 }
 
 .hgh-settings {
   position: absolute;
   right: 16px;
-  color: var(--card-white);
+  color: white;
   cursor: pointer;
 }
 
@@ -73,31 +62,33 @@
 
 .hgh-search-bar {
   flex: 1;
-  background-color: rgba(90, 0, 0, 0.6); /* Very dark red/brown translucent */
+  background-color: rgba(90, 0, 0, 0.5);
   border-radius: 24px;
   display: flex;
   align-items: center;
-  padding: 10px 16px;
-  color: var(--card-white);
+  padding: 12px 16px;
+  color: white;
+  cursor: pointer;
 }
 
 .hgh-search-text {
   margin-left: 12px;
-  font-size: 15px;
-  opacity: 0.8;
+  font-size: 16px;
+  opacity: 0.9;
   font-weight: 500;
 }
 
 .hgh-bell-btn {
-  background-color: #FF8F00; /* Orange */
-  width: 44px;
-  height: 44px;
+  background-color: #f79051; /* Matching orange */
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--card-white);
+  color: white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
 }
 
 /* Map Area */
@@ -108,19 +99,18 @@
   right: 0;
   bottom: 0;
   z-index: 1;
-  /* Since it's a demo, we will use a light map-like background with SVG grid */
   background-color: #E8EAED;
   background-image: 
     linear-gradient(#D5D8DC 1px, transparent 1px),
     linear-gradient(90deg, #D5D8DC 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-size: 30px 30px;
 }
 
 /* Floating Map Buttons */
 .map-floating-buttons {
   position: absolute;
   right: 16px;
-  bottom: 350px; /* Above bottom sheet */
+  bottom: 400px; /* Sit right above bottom sheet */
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -128,52 +118,70 @@
 }
 
 .mfb-btn {
-  width: 44px;
-  height: 44px;
-  background-color: var(--card-white);
+  width: 48px;
+  height: 48px;
+  background-color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  color: var(--text-primary);
+  color: #333;
+  cursor: pointer;
 }
 
 /* User Location Dot */
 .map-user-location {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   width: 16px;
   height: 16px;
   background-color: #2196F3;
-  border: 3px solid white;
+  border: 2.5px solid white;
   border-radius: 50%;
-  box-shadow: 0 0 8px rgba(33, 150, 243, 0.5);
+  box-shadow: 0 0 0 6px rgba(33, 150, 243, 0.2);
   z-index: 2;
   transform: translate(-50%, -50%);
 }
 
-/* Fake Bus Markers on Map */
+/* Map Markers */
 .map-fake-marker {
   position: absolute;
   display: flex;
   align-items: center;
   gap: 4px;
-  background-color: var(--card-white);
-  padding: 2px 6px;
+  padding: 4px 6px;
   border-radius: 4px;
   font-size: 11px;
   font-weight: 800;
-  color: var(--card-white);
+  color: white;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   z-index: 3;
 }
 
-.mfm-green { background-color: var(--success-green); }
-.mfm-blue { background-color: #03A9F4; }
-.mfm-orange { background-color: #FF9800; }
-.mfm-grey { background-color: var(--text-secondary); }
+.map-fake-marker::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px 4px 0;
+  border-style: solid;
+}
+
+.mfm-green { background-color: #319e5f; }
+.mfm-green::after { border-color: #319e5f transparent transparent transparent; }
+
+.mfm-blue { background-color: #4ba3e3; }
+.mfm-blue::after { border-color: #4ba3e3 transparent transparent transparent; }
+
+.mfm-orange { background-color: #ff9800; }
+.mfm-orange::after { border-color: #ff9800 transparent transparent transparent; }
+
+.mfm-grey { background-color: #757575; }
+.mfm-grey::after { border-color: #757575 transparent transparent transparent; }
+
 
 /* Bottom Sheet */
 .home-bottom-sheet {
@@ -181,21 +189,21 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 380px; /* Fixed height for demo */
-  background-color: var(--card-white);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+  height: 45%; 
+  background-color: white;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
   z-index: 20;
   display: flex;
   flex-direction: column;
-  padding-bottom: 70px; /* Space for BottomNav */
+  padding-bottom: 90px; /* Space for BottomNav */
 }
 
 .drag-handle {
-  width: 32px;
+  width: 36px;
   height: 4px;
-  background-color: var(--border-color);
+  background-color: #ddd;
   border-radius: 2px;
   margin: 12px auto;
 }
@@ -204,34 +212,26 @@
   display: flex;
   gap: 12px;
   padding: 0 16px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .hbs-tab-pill {
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 8px 18px;
+  border-radius: 24px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   border: none;
   cursor: pointer;
 }
 
 .hbs-tab-pill.active {
-  background-color: var(--primary-red);
-  color: var(--card-white);
+  background-color: #cb292a;
+  color: white;
 }
 
 .hbs-tab-pill.inactive {
-  background-color: var(--text-secondary);
-  color: var(--card-white);
-}
-
-.hbs-nearby-title {
-  padding: 0 16px;
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 12px;
+  background-color: #a8a8a8;
+  color: white;
 }
 
 .stop-list {
@@ -245,7 +245,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #eee;
 }
 
 .stop-list-item:last-child {
@@ -259,24 +259,26 @@
 }
 
 .stop-item-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
-  color: var(--text-primary);
+  color: #000;
 }
 
 .stop-item-subtitle {
-  font-size: 13px;
-  color: var(--text-secondary);
+  font-size: 14px;
+  color: #666;
   font-weight: 500;
 }
 
 .view-buses-btn {
   background: transparent;
-  border: 1px solid var(--success-green);
-  color: var(--success-green);
-  padding: 6px 12px;
-  border-radius: 16px;
+  border: 1.5px solid #2db369;
+  color: #2db369;
+  padding: 8px 16px;
+  border-radius: 24px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
+  white-space: nowrap;
+  margin-left: 12px;
 }

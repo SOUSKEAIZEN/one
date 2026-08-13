@@ -1,29 +1,56 @@
-.bottom-nav {
+.bottom-nav-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  background-color: var(--surface);
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav {
   display: flex;
   justify-content: space-around;
-  padding: 8px 0;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
-  border-top: 1px solid var(--border);
+  align-items: center;
+  height: 64px;
+  padding: 0 8px;
 }
 
 .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
-  color: var(--text-secondary);
+  color: #333333; /* Dark gray for inactive */
+  gap: 4px;
+  flex: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item span {
   font-size: 11px;
   font-weight: 700;
-  padding: 4px;
-  flex: 1;
 }
 
-.nav-item svg {
-  margin-bottom: 2px;
-}
-
+/* Active State matches the exact red from the app */
 .nav-item.active {
-  color: var(--dark-red);
+  color: #c4272c;
+}
+
+.nav-item.active svg {
+  stroke: #c4272c;
+  stroke-width: 2.5px;
+}
+
+.bottom-nav-footer {
+  background-color: #ba282b;
+  color: white;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 0;
+  width: 100%;
+  letter-spacing: 0.3px;
 }

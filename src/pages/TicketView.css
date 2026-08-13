@@ -1,11 +1,10 @@
 .page-ticket-view {
-  background-color: var(--primary-red);
+  background-color: #cb292a; /* Exact App Red */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  color: var(--card-white);
+  color: white;
   padding: 16px;
-  position: relative;
 }
 
 .ticket-nav-header {
@@ -18,8 +17,7 @@
 .icon-btn {
   background: none;
   border: none;
-  color: var(--card-white);
-  padding: 4px;
+  color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -28,10 +26,10 @@
 .all-tickets-btn {
   background: none;
   border: none;
-  color: var(--card-white);
+  color: white;
   display: flex;
   align-items: center;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
 }
@@ -43,34 +41,20 @@
   flex: 1;
 }
 
-.demo-warning-banner {
-  background-color: #FFEB3B;
-  color: #000;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 700;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  text-align: center;
-  width: 100%;
-  max-width: 340px;
-}
-
 .white-ticket-card {
-  background-color: var(--card-white);
-  color: var(--text-primary);
+  background-color: white;
   width: 100%;
-  max-width: 360px;
-  border-radius: 4px;
-  padding: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  max-width: 380px;
+  border-radius: 6px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 
 .wtc-dept-title {
   text-align: center;
-  font-size: 16px;
-  color: var(--text-primary);
-  margin-bottom: 16px;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
   font-weight: 400;
 }
 
@@ -84,19 +68,20 @@
 .wtc-validated-text {
   font-size: 16px;
   font-weight: 400;
-  color: var(--text-primary);
+  color: #000;
 }
 
 .wtc-original-fare {
   font-size: 18px;
   font-weight: 400;
-  color: var(--text-primary);
+  color: #000;
 }
 
 .wtc-divider {
-  height: 1px;
-  background-color: var(--text-primary);
+  height: 1.5px;
+  background-color: #000;
   margin-bottom: 16px;
+  width: 100%;
 }
 
 .wtc-main-grid {
@@ -121,23 +106,24 @@
 }
 
 .wtc-label {
-  font-size: 13px;
-  color: var(--text-secondary);
+  font-size: 12px;
+  color: #666;
   margin-bottom: 4px;
 }
 
 .wtc-value {
   font-size: 16px;
   font-weight: 400;
-  color: var(--text-primary);
+  color: #000;
 }
 
 .wtc-ticket-id {
   text-align: center;
-  font-size: 12px;
-  color: var(--text-secondary);
+  font-size: 11px;
+  color: #555;
   margin-top: 16px;
   margin-bottom: 16px;
+  letter-spacing: 0.5px;
 }
 
 .wtc-qr-action {
@@ -146,12 +132,12 @@
 
 .btn-show-qr {
   width: 100%;
-  background-color: var(--primary-red);
-  color: var(--card-white);
+  background-color: #cb292a;
+  color: white;
   border: none;
-  padding: 12px;
+  padding: 14px;
   border-radius: 4px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -173,12 +159,12 @@
 .qr-timer {
   font-size: 14px;
   font-weight: 700;
-  color: var(--primary-red);
+  color: #cb292a;
 }
 
 .btn-hide-qr {
   background: none;
-  border: 1px solid var(--border-color);
+  border: 1px solid #ddd;
   padding: 8px 16px;
   border-radius: 4px;
   font-size: 14px;
@@ -186,34 +172,35 @@
 }
 
 .validated-pill {
-  background-color: var(--card-white);
-  color: var(--primary-red);
+  background-color: white;
+  color: #cb292a;
   font-size: 14px;
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 10px 18px;
+  border-radius: 24px;
   margin-top: 24px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .ticket-footer {
   margin-top: auto;
   padding-top: 32px;
+  padding-bottom: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .tf-network {
-  color: var(--accent-cyan);
+  color: #0056b3; /* ONDC Blue */
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.5px;
 }
 
 .tf-powered {
-  color: var(--card-white);
+  color: white;
   font-size: 12px;
   opacity: 0.9;
 }

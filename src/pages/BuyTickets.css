@@ -1,6 +1,6 @@
 .page-buy {
   padding: 0;
-  background-color: var(--primary-red); /* Solid red background */
+  background-color: #cb292a; /* Exact One Delhi App red */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -11,14 +11,12 @@
   display: flex;
   align-items: center;
   padding: 16px;
-  color: var(--card-white);
-  position: relative;
+  color: white;
 }
 
 .buy-back-btn {
   background: none;
   border: none;
-  color: var(--card-white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,25 +27,26 @@
 .buy-title {
   flex: 1;
   text-align: center;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
-  margin-right: 28px; /* To offset the back button and center the title */
+  margin-right: 32px; /* Offset the back button perfectly */
+  color: white;
 }
 
 .buy-timer-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .buy-timer-pill {
-  background-color: var(--card-white);
-  color: var(--text-primary);
-  font-size: 13px;
-  font-weight: 700;
+  background-color: white;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
   padding: 6px 16px;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .buy-card-container {
@@ -56,75 +55,45 @@
 }
 
 .buy-white-card {
-  background-color: var(--card-white);
+  background-color: white;
   border-radius: 8px;
-  padding: 16px;
+  padding: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .bwc-section-title {
   font-size: 14px;
   font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 8px;
+  color: black;
+  margin-bottom: 12px;
 }
 
 .bwc-input-box {
-  background-color: var(--light-bg);
-  border-radius: 6px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
   display: flex;
   align-items: center;
-  padding: 12px;
-  margin-bottom: 16px;
-  border: 1px solid transparent;
+  padding: 14px 16px;
+  position: relative;
+  border: 1.5px solid transparent;
+  transition: all 0.2s;
 }
 
 .bwc-input-box.focused {
-  border-color: var(--text-primary);
-  background-color: var(--card-white);
+  border-color: black;
+  background-color: white;
 }
 
 .bwc-input-box.disabled {
   opacity: 0.6;
 }
 
-.bwc-input-box:last-child {
-  margin-bottom: 0;
-}
-
 .bwc-icon {
-  margin-right: 12px;
-  color: var(--text-primary);
+  margin-right: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.bwc-text {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* For the dropdown selects */
-.bwc-select {
-  background: transparent;
-  border: none;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-  flex: 1;
-  width: 100%;
-  appearance: none;
-  outline: none;
-}
-
-.bwc-select:disabled {
-  color: var(--text-secondary);
+  flex-shrink: 0;
 }
 
 .bwc-custom-input {
@@ -132,35 +101,35 @@
   border: none;
   font-size: 15px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #333;
   flex: 1;
   width: 100%;
   appearance: none;
   outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bwc-dropdown {
   position: absolute;
-  top: 100%;
-  left: -1px;
-  right: -1px;
-  background: var(--card-white);
-  border: 1px solid var(--border-color);
-  border-top: none;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 8px;
   max-height: 240px;
   overflow-y: auto;
-  z-index: 50;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
 .bwc-dropdown-item {
-  padding: 12px 16px;
+  padding: 16px;
   font-size: 14px;
-  font-weight: 700;
-  color: var(--text-primary);
-  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #eee;
   cursor: pointer;
 }
 
@@ -168,57 +137,46 @@
   border-bottom: none;
 }
 
-.bwc-dropdown-item:hover {
-  background-color: var(--light-bg);
+.bwc-dropdown-item:active, .bwc-dropdown-item:hover {
+  background-color: #f9f9f9;
 }
 
-.bwc-bus-type-toggles {
+.bwc-bus-type-container {
   display: flex;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  overflow: hidden;
-  width: fit-content;
+  gap: 12px;
 }
 
 .bwc-bt-btn {
-  padding: 8px 16px;
-  font-size: 14px;
+  padding: 10px 16px;
+  font-size: 15px;
   font-weight: 500;
-  border: none;
-  background-color: var(--card-white);
-  color: var(--text-primary);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: white;
+  color: #333;
   cursor: pointer;
+  min-width: 70px;
+  transition: all 0.2s;
 }
 
 .bwc-bt-btn.active-ac {
-  background-color: var(--primary-red);
-  color: var(--card-white);
+  background-color: #cb292a;
+  color: white;
+  border-color: #cb292a;
 }
 
 .bwc-bt-btn.active-nonac {
-  background-color: var(--success-green);
-  color: var(--card-white);
-}
-
-.bwc-bt-btn:not(:last-child) {
-  border-right: 1px solid var(--border-color);
+  background-color: #319e5f;
+  color: white;
+  border-color: #319e5f;
 }
 
 .buy-bottom-sheet {
-  background-color: var(--card-white);
-  padding: 16px;
-  padding-bottom: 0; /* BUY button touches bottom */
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+  background-color: white;
+  padding: 16px 16px 0 16px;
   display: flex;
   flex-direction: column;
   margin-top: 24px;
-}
-
-.bbs-section-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 12px;
 }
 
 .bbs-qty-toggles {
@@ -229,13 +187,13 @@
 
 .bbs-qty-btn {
   width: 48px;
-  height: 40px;
+  height: 44px;
   border-radius: 6px;
-  border: 1px solid var(--border-color);
-  background-color: var(--card-white);
-  color: var(--text-primary);
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #333;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,64 +201,64 @@
 }
 
 .bbs-qty-btn.active {
-  background-color: var(--primary-red);
-  color: var(--card-white);
-  border-color: var(--primary-red);
+  background-color: #cb292a;
+  color: white;
+  border-color: #cb292a;
 }
 
 .bbs-price-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  min-height: 28px;
 }
 
 .bbs-price-left {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 12px;
 }
 
 .bbs-price-old {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #333;
   text-decoration: line-through;
+  text-decoration-thickness: 2px;
 }
 
 .bbs-price-new {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
-  color: var(--primary-red); /* Wait, it's red/orange in the image, maybe #E53935 */
+  color: #ff5252;
 }
 
 .bbs-discount-badge {
-  background-color: var(--success-green);
-  color: var(--card-white);
+  background-color: #21d17d;
+  color: white;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 6px 12px;
   border-radius: 4px;
 }
 
 .bbs-buy-action-row {
-  margin: 0 -16px; /* Negate padding to make button full width */
+  margin: 0 -16px;
 }
 
 .bbs-buy-btn {
   width: 100%;
-  background-color: var(--primary-red);
-  color: var(--card-white);
+  background-color: #cb292a;
+  color: white;
   border: none;
-  padding: 16px;
-  font-size: 14px;
+  padding: 18px;
+  font-size: 16px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   cursor: pointer;
 }
 
 .bbs-buy-btn:disabled {
-  background-color: var(--text-secondary);
+  background-color: #999;
   cursor: not-allowed;
 }

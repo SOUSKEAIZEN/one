@@ -23,7 +23,6 @@ const TicketView = () => {
       const diff = ticket.expiresAt - now;
 
       if (diff <= 0) {
-        // Handled by AppContext auto-deletion
         setTimeLeft('00:00:00');
         return;
       }
@@ -45,11 +44,8 @@ const TicketView = () => {
     return (
       <div className="page-ticket-view">
         <div className="ticket-view-content" style={{ justifyContent: 'center', textAlign: 'center' }}>
-          <div style={{ margin: '32px 0' }}>
-            <p style={{ fontSize: '18px', fontWeight: 600 }}>Ticket Unavailable</p>
-            <p style={{ marginTop: '8px' }}>This ticket has expired and been automatically deleted, or it does not exist.</p>
-          </div>
-          <button style={{ padding: '12px 24px', backgroundColor: 'var(--card-white)', color: 'var(--primary-red)', border: 'none', borderRadius: '4px', fontWeight: 'bold' }} onClick={() => navigate('/')}>
+          <p style={{ fontSize: '18px', fontWeight: 600 }}>Ticket Unavailable</p>
+          <button style={{ padding: '12px 24px', backgroundColor: 'white', color: '#cb292a', border: 'none', borderRadius: '4px', fontWeight: 'bold', marginTop: '16px' }} onClick={() => navigate('/')}>
             Book a New Ticket
           </button>
         </div>
@@ -64,7 +60,6 @@ const TicketView = () => {
     const yearStr = d.getFullYear().toString().slice(-2);
     const timeStr = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
     
-    // Output: 13 Aug, 26 | 01:38 PM
     return `${day} ${monthStr}, ${yearStr} | ${timeStr}`;
   };
 
@@ -72,24 +67,19 @@ const TicketView = () => {
 
   return (
     <div className="page-ticket-view">
-      {/* Top Header */}
       <div className="ticket-nav-header">
         <button className="icon-btn" onClick={() => navigate(-1)}>
-          <X size={24} strokeWidth={2.5} />
+          <X size={28} strokeWidth={2} />
         </button>
         <button className="all-tickets-btn" onClick={() => navigate('/tickets')}>
-          <History size={18} className="mr-1" style={{ marginRight: '6px' }} /> All tickets
+          <History size={20} style={{ marginRight: '6px' }} /> All tickets
         </button>
       </div>
 
       <div className="ticket-view-content">
-        <div className="demo-warning-banner">
-          DEMO TICKET — NOT VALID FOR TRAVEL
-        </div>
-        
         <div className="white-ticket-card">
           <div className="wtc-dept-title">
-            MetroGo Dept. of Delhi
+            Transport Dept. of Delhi
           </div>
           
           <div className="wtc-validated-row">
@@ -130,7 +120,7 @@ const TicketView = () => {
           </div>
 
           <div className="wtc-ticket-id">
-            {ticket.id.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 20)}
+            {ticket.id.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 21)}
           </div>
 
           <div className="wtc-qr-action">
@@ -153,8 +143,8 @@ const TicketView = () => {
         </div>
         
         <div className="ticket-footer">
-          <span className="tf-network">METROGO NETWORK</span>
-          <span className="tf-powered">Powered by MetroGo</span>
+          <span className="tf-network">ONDC NETWORK</span>
+          <span className="tf-powered">Powered by IIIT Delhi</span>
         </div>
       </div>
     </div>
