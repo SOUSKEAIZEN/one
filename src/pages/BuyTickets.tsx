@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ChevronDown, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Route as RouteIcon, Circle, MapPin } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { getFareDetails } from '../data/fares';
-import { Stop } from '../data/types';
 import './BuyTickets.css';
 
 const BuyTickets = () => {
@@ -48,7 +47,6 @@ const BuyTickets = () => {
   const handleSourceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const stop = selectedRoute.stops.find(s => s.id === e.target.value);
     setSelectedSource(stop || null);
-    // Reset destination if it's now invalid (before or same as new source)
     if (stop && selectedDestination && selectedDestination.sequence <= stop.sequence) {
       setSelectedDestination(null);
     }
@@ -61,115 +59,177 @@ const BuyTickets = () => {
 
   const canProceed = selectedSource && selectedDestination;
 
+  const formatFare = (num: number) => num.toFixed(1);
+
+  const StopSelector = ({ 
+    icon, 
+    placeholder, 
+    value, 
+    onChange, 
+    options, 
+    disabled 
+  }: { 
+    icon: React.ReactNode, 
+    placeholder: string, 
+    value: string, 
+    onChange: (id: string) => void, 
+    options: {id: string, name: string}[],
+    disabled?: boolean
+  }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const filteredOptions = options.filter(opt => 
+      opt.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const displayValue = options.find(o => o.id === value)?.name || '';
+
+    return (
+      <div className={`bwc-input-box ${isOpen ? 'focused' : ''} ${disabled ? 'disabled' : ''}`} style={{ position: 'relative' }}>
+        {icon}
+        <input 
+          type="text"
+          className="bwc-custom-input"
+          placeholder={placeholder}
+          value={isOpen ? searchTerm : displayValue}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onFocus={() => {
+            if (disabled) return;
+            setIsOpen(true);
+            setSearchTerm(''); // Clear to show all/search new
+          }}
+          onBlur={() => {
+            // Delay to allow click to register
+            setTimeout(() => {
+              setIsOpen(false);
+              setSearchTerm('');
+            }, 200);
+          }}
+          disabled={disabled}
+        />
+        {isOpen && (
+          <div className="bwc-dropdown">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map(opt => (
+                <div 
+                  key={opt.id} 
+                  className="bwc-dropdown-item"
+                  onClick={() => onChange(opt.id)}
+                >
+                  {opt.name}
+                </div>
+              ))
+            ) : (
+              <div className="bwc-dropdown-item" style={{ color: '#9E9E9E' }}>No stops found</div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
-    <div className="page-container page-buy">
-      <div className="route-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
+    <div className="page-buy">
+      <div className="buy-header">
+        <button className="buy-back-btn" onClick={() => navigate(-1)}>
           <ArrowLeft size={24} />
         </button>
-        <h2>Buy Tickets</h2>
+        <div className="buy-title">Buy tickets</div>
       </div>
 
-      <div className="buy-content">
-        <div className="route-summary-card card">
-          <div className="route-summary-top">
-            <span className="route-num">{selectedRoute.routeNumber}</span>
-            <span className="route-dir">{selectedRoute.direction}</span>
-          </div>
-          
-          <div className="form-group">
-            <label className="input-label">Starting Stop</label>
-            <div className="select-wrapper">
-              <select 
-                className="input-field select-field" 
-                value={selectedSource?.id || ''} 
-                onChange={handleSourceChange}
-              >
-                <option value="" disabled>Select Starting Stop</option>
-                {selectedRoute.stops.map(stop => (
-                  <option key={stop.id} value={stop.id}>{stop.name}</option>
-                ))}
-              </select>
-              <ChevronDown className="select-icon" size={20} />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label className="input-label">Destination Stop</label>
-            <div className="select-wrapper">
-              <select 
-                className="input-field select-field" 
-                value={selectedDestination?.id || ''} 
-                onChange={handleDestinationChange}
-                disabled={!selectedSource}
-              >
-                <option value="" disabled>Select Destination</option>
-                {validDestinations.map(stop => (
-                  <option key={stop.id} value={stop.id}>{stop.name}</option>
-                ))}
-              </select>
-              <ChevronDown className="select-icon" size={20} />
-            </div>
-          </div>
+      <div className="buy-timer-container">
+        <div className="buy-timer-pill">
+          Pay within 02:34
         </div>
+      </div>
 
-        <div className="card">
-          <label className="input-label">Bus Type</label>
-          <div className="segmented-control">
+      <div className="buy-card-container">
+        <div className="buy-white-card">
+          <div className="bwc-section-title">Route Info</div>
+          <div className="bwc-input-box">
+            <RouteIcon size={20} className="bwc-icon" />
+            <div className="bwc-text">
+              {selectedRoute.routeNumber}-{selectedRoute.direction.substring(0, 30)}
+            </div>
+          </div>
+
+          <div className="bwc-section-title" style={{ marginTop: '20px' }}>From - To</div>
+          
+          <StopSelector
+            icon={<Circle size={16} fill="black" className="bwc-icon" />}
+            placeholder="Starting Stop"
+            value={selectedSource?.id || ''}
+            onChange={(id) => handleSourceChange({ target: { value: id } } as any)}
+            options={selectedRoute.stops}
+          />
+          
+          <div style={{ marginTop: '8px' }}>
+            <StopSelector
+              icon={<MapPin size={20} fill="black" stroke="white" strokeWidth={1} className="bwc-icon" />}
+              placeholder="Destination Stop"
+              value={selectedDestination?.id || ''}
+              onChange={(id) => handleDestinationChange({ target: { value: id } } as any)}
+              options={validDestinations}
+              disabled={!selectedSource}
+            />
+          </div>
+
+          <div className="bwc-section-title" style={{ marginTop: '20px' }}>Bus Type</div>
+          <div className="bwc-bus-type-toggles">
             <button 
-              className={`segment-btn ${selectedBusType === 'NON_AC' ? 'active' : ''}`}
-              onClick={() => setSelectedBusType('NON_AC')}
-            >
-              Non-AC
-            </button>
-            <button 
-              className={`segment-btn ${selectedBusType === 'AC' ? 'active' : ''}`}
+              className={`bwc-bt-btn ${selectedBusType === 'AC' ? 'active-ac' : ''}`}
               onClick={() => setSelectedBusType('AC')}
               disabled={selectedRoute.busType === 'NON_AC'}
             >
               AC
             </button>
+            <button 
+              className={`bwc-bt-btn ${selectedBusType === 'NON_AC' ? 'active-nonac' : ''}`}
+              onClick={() => setSelectedBusType('NON_AC')}
+            >
+              Non-AC
+            </button>
           </div>
         </div>
-
-        <div className="card">
-          <label className="input-label">Number of Tickets</label>
-          <div className="segmented-control tickets-qty">
-            {[1, 2, 3].map(qty => (
-              <button 
-                key={qty}
-                className={`segment-btn ${ticketQuantity === qty ? 'active' : ''}`}
-                onClick={() => setTicketQuantity(qty)}
-              >
-                {qty}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {canProceed && (
-          <div className="fare-breakdown-card card">
-            <div className="fare-row">
-              <span className="fare-label">Amount Payable</span>
-              <span className="fare-original">₹{fare.original.toFixed(1)}</span>
-            </div>
-            <div className="fare-row discount-row">
-              <span className="fare-discount-badge">{fare.discountPercent}% OFF</span>
-              <span className="fare-discounted">₹{fare.discounted.toFixed(1)}</span>
-            </div>
-          </div>
-        )}
-
       </div>
       
-      <div className="bottom-action-bar">
-        <button 
-          className="btn btn-primary btn-large" 
-          disabled={!canProceed}
-          onClick={() => navigate('/checkout')}
-        >
-          BUY DEMO TICKET
-        </button>
+      <div className="buy-bottom-sheet">
+        <div className="bbs-section-title">Number of tickets</div>
+        <div className="bbs-qty-toggles">
+          {[1, 2, 3].map(qty => (
+            <button 
+              key={qty}
+              className={`bbs-qty-btn ${ticketQuantity === qty ? 'active' : ''}`}
+              onClick={() => setTicketQuantity(qty)}
+            >
+              {qty}
+            </button>
+          ))}
+        </div>
+
+        <div className="bbs-section-title">Amount Payable</div>
+        <div className="bbs-price-row">
+          <div className="bbs-price-left">
+            <span className="bbs-price-old">₹{formatFare(fare.original)}</span>
+            <span className="bbs-price-new" style={{ color: selectedBusType === 'AC' ? '#D32F2F' : '#F44336' }}>
+              ₹{formatFare(fare.discounted)}
+            </span>
+          </div>
+          <div className="bbs-discount-badge">
+            {fare.discountPercent.toFixed(1)}% off
+          </div>
+        </div>
+
+        <div className="bbs-buy-action-row">
+          <button 
+            className="bbs-buy-btn" 
+            disabled={!canProceed}
+            onClick={() => navigate('/checkout')}
+          >
+            BUY
+          </button>
+        </div>
       </div>
     </div>
   );

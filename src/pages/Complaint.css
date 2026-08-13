@@ -33,7 +33,7 @@
 }
 
 .complaint-id-box {
-  background-color: #F5F5F5;
+  background-color: var(--light-bg);
   border: 1px dashed var(--border);
   padding: 12px;
   border-radius: 8px;

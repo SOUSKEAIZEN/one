@@ -8,7 +8,7 @@
   align-items: center;
   padding: 12px 16px;
   background-color: var(--primary);
-  color: white;
+  color: var(--card-white);
   gap: 16px;
   position: sticky;
   top: 0;
@@ -16,13 +16,13 @@
 }
 
 .route-header h2 {
-  color: white;
+  color: var(--card-white);
   margin: 0;
   font-size: 18px;
 }
 
 .route-header .back-btn {
-  color: white;
+  color: var(--card-white);
 }
 
 .route-info-card {
@@ -38,7 +38,7 @@
 
 .route-badge-large {
   background-color: var(--primary);
-  color: white;
+  color: var(--card-white);
   font-size: 20px;
   font-weight: 700;
   padding: 8px 16px;
@@ -126,7 +126,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: white;
+  background-color: var(--card-white);
   border: 2px solid var(--border);
   z-index: 2;
   margin-top: 4px;

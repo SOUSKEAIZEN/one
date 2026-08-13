@@ -1,102 +1,197 @@
 .page-history {
   padding: 0;
-  background-color: var(--background);
-}
-
-.history-content {
-  padding: 16px;
-  padding-bottom: 90px;
-}
-
-.no-tickets {
+  background-color: var(--light-bg);
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+.tickets-hero-banner {
+  background-color: #DDE8FA;
+  height: 160px;
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
-  color: var(--text-secondary);
 }
 
-.mt-4 {
-  margin-top: 16px;
+.tickets-top-actions {
+  position: absolute;
+  top: 130px;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  padding: 0 16px;
+  justify-content: space-between;
 }
 
-.ticket-section {
-  margin-bottom: 24px;
-}
-
-.ticket-section h3 {
-  font-size: 16px;
-  color: var(--text-main);
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-.history-card {
-  background-color: var(--surface);
+.tt-action-card {
+  flex: 1;
+  background-color: var(--card-white);
   border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: var(--shadow-sm);
-  cursor: pointer;
-  border-left: 4px solid var(--primary);
-  transition: transform 0.1s;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  position: relative;
 }
 
-.history-card:active {
-  transform: scale(0.98);
+.tt-action-card.grey {
+  background-color: var(--border-color);
 }
 
-.history-card.expired {
-  border-left-color: var(--text-secondary);
-  opacity: 0.8;
+.tt-card-title {
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.2;
 }
 
-.h-top {
+.tt-icon-wrapper {
+  margin-top: 8px;
+  align-self: flex-end;
+}
+
+.tt-new-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #F44336;
+  color: var(--card-white);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 12px;
+}
+
+.tickets-main-content {
+  padding: 70px 16px 90px 16px; /* Space for the overlapping action cards and bottom nav */
+}
+
+.tickets-section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 12px;
+  margin-top: 24px;
+}
+
+.tickets-section-header:first-child {
+  margin-top: 0;
+}
+
+.ts-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.ts-view-all {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.ts-empty-card {
+  background-color: var(--card-white);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.active-ticket-card {
+  background-color: var(--card-white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: relative;
+  cursor: pointer;
+}
+
+.atc-top-bar {
+  background-color: var(--text-secondary);
+  height: 24px;
+  width: 100%;
+}
+
+.atc-content {
+  padding: 16px;
+}
+
+.atc-row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.atc-route {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.atc-price-col {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.atc-price-old {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+.atc-qty {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.atc-price-new {
+  font-size: 16px;
+  color: var(--text-primary);
+  font-weight: 800;
+}
+
+.atc-date {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.atc-stop {
+  font-size: 15px;
+  color: var(--text-primary);
+  font-weight: 500;
   margin-bottom: 8px;
 }
 
-.h-route {
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--text-main);
-}
-
-.h-status {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background-color: rgba(0,0,0,0.05);
-}
-
-.text-success {
-  color: #2E7D32;
-}
-
-.text-error {
-  color: #C62828;
-}
-
-.h-path {
-  font-size: 14px;
-  color: var(--text-main);
-  margin-bottom: 12px;
-}
-
-.h-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
+.atc-ticket-id {
+  text-align: center;
+  font-size: 12px;
   color: var(--text-secondary);
+  margin-top: 16px;
 }
 
-.h-fare {
-  font-weight: 600;
-  color: var(--text-main);
+.atc-invalid-stamp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  font-size: 48px;
+  font-weight: 900;
+  color: rgba(211, 47, 47, 0.7); /* Translucent red */
+  border: 6px solid rgba(211, 47, 47, 0.7);
+  padding: 8px 16px;
+  letter-spacing: 4px;
+  pointer-events: none;
+  z-index: 5;
 }

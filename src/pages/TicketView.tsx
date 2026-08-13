@@ -43,13 +43,13 @@ const TicketView = () => {
 
   if (!ticket) {
     return (
-      <div className="page-container page-ticket-view">
-        <div className="ticket-view-content flex flex-col items-center justify-center mt-12" style={{ textAlign: 'center' }}>
-          <div style={{ margin: '32px 0', color: 'var(--text-secondary)' }}>
+      <div className="page-ticket-view">
+        <div className="ticket-view-content" style={{ justifyContent: 'center', textAlign: 'center' }}>
+          <div style={{ margin: '32px 0' }}>
             <p style={{ fontSize: '18px', fontWeight: 600 }}>Ticket Unavailable</p>
             <p style={{ marginTop: '8px' }}>This ticket has expired and been automatically deleted, or it does not exist.</p>
           </div>
-          <button className="btn btn-primary" onClick={() => navigate('/')}>
+          <button style={{ padding: '12px 24px', backgroundColor: 'var(--card-white)', color: 'var(--primary-red)', border: 'none', borderRadius: '4px', fontWeight: 'bold' }} onClick={() => navigate('/')}>
             Book a New Ticket
           </button>
         </div>
@@ -59,23 +59,26 @@ const TicketView = () => {
 
   const formatDateTime = (ts: number) => {
     const d = new Date(ts);
-    return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' }) + 
-           ' | ' + 
-           d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    const day = d.getDate().toString().padStart(2, '0');
+    const monthStr = d.toLocaleDateString('en-GB', { month: 'short' });
+    const yearStr = d.getFullYear().toString().slice(-2);
+    const timeStr = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    
+    // Output: 13 Aug, 26 | 01:38 PM
+    return `${day} ${monthStr}, ${yearStr} | ${timeStr}`;
   };
 
-  // Original fare before discount (since demo gives 10% off)
   const originalFare = (ticket.farePaid / 0.9).toFixed(1);
 
   return (
     <div className="page-ticket-view">
       {/* Top Header */}
       <div className="ticket-nav-header">
-        <button className="icon-btn text-white" onClick={() => navigate('/')}>
-          <X size={24} />
+        <button className="icon-btn" onClick={() => navigate(-1)}>
+          <X size={24} strokeWidth={2.5} />
         </button>
-        <button className="all-tickets-btn text-white" onClick={() => navigate('/tickets')}>
-          <History size={18} className="mr-1" /> All tickets
+        <button className="all-tickets-btn" onClick={() => navigate('/tickets')}>
+          <History size={18} className="mr-1" style={{ marginRight: '6px' }} /> All tickets
         </button>
       </div>
 
@@ -85,18 +88,18 @@ const TicketView = () => {
         </div>
         
         <div className="white-ticket-card">
-          <div className="wtc-header">
-            <h3>MetroGo Delhi (Demo)</h3>
+          <div className="wtc-dept-title">
+            MetroGo Dept. of Delhi
           </div>
           
           <div className="wtc-validated-row">
-            <span className="wtc-validated-text">VALIDATED DEMO</span>
+            <span className="wtc-validated-text">VALIDATED</span>
             <span className="wtc-original-fare">₹{originalFare}</span>
           </div>
 
           <div className="wtc-divider"></div>
 
-          <div className="wtc-grid-2">
+          <div className="wtc-main-grid">
             <div className="wtc-field">
               <span className="wtc-label">Bus Route</span>
               <span className="wtc-value">{ticket.routeNumber}</span>
@@ -106,28 +109,28 @@ const TicketView = () => {
               <span className="wtc-value">₹{ticket.farePaid.toFixed(1)}</span>
             </div>
 
-            <div className="wtc-field mt-2">
+            <div className="wtc-field">
               <span className="wtc-label">Booking Time</span>
               <span className="wtc-value">{formatDateTime(ticket.purchaseTime)}</span>
             </div>
-            <div className="wtc-field text-right mt-2">
+            <div className="wtc-field text-right">
               <span className="wtc-label">Bus Tickets</span>
               <span className="wtc-value">{ticket.ticketsCount}</span>
             </div>
-          </div>
 
-          <div className="wtc-field mt-3">
-            <span className="wtc-label">Starting stop</span>
-            <span className="wtc-value">{ticket.fromStop}</span>
-          </div>
+            <div className="wtc-field full-width">
+              <span className="wtc-label">Starting stop</span>
+              <span className="wtc-value">{ticket.fromStop}</span>
+            </div>
 
-          <div className="wtc-field mt-3">
-            <span className="wtc-label">Ending stop</span>
-            <span className="wtc-value">{ticket.toStop}</span>
+            <div className="wtc-field full-width">
+              <span className="wtc-label">Ending stop</span>
+              <span className="wtc-value">{ticket.toStop}</span>
+            </div>
           </div>
 
           <div className="wtc-ticket-id">
-            {ticket.id}
+            {ticket.id.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 20)}
           </div>
 
           <div className="wtc-qr-action">
@@ -149,10 +152,10 @@ const TicketView = () => {
           Validated At: {formatDateTime(ticket.purchaseTime)}
         </div>
         
-      </div>
-      
-      <div className="ticket-footer">
-        Powered by MetroGo
+        <div className="ticket-footer">
+          <span className="tf-network">METROGO NETWORK</span>
+          <span className="tf-powered">Powered by MetroGo</span>
+        </div>
       </div>
     </div>
   );

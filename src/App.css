@@ -17,8 +17,8 @@
 }
 
 .global-footer-banner {
-  background-color: #B71C1C;
-  color: white;
+  background-color: var(--dark-red);
+  color: var(--card-white);
   text-align: center;
   font-size: 10px;
   padding: 4px;

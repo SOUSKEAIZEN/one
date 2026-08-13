@@ -32,7 +32,7 @@ export const calculateFare = (
 
   return {
     original: originalTotal,
-    discounted: Math.round(discountTotal * 2) / 2, // Round to nearest 0.5
+    discounted: Math.round(discountedTotal * 2) / 2, // Round to nearest 0.5
     discountPercent
   };
 };

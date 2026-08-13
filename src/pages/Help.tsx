@@ -1,69 +1,88 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, ChevronUp, MessageSquare } from 'lucide-react';
-import { FAQS } from '../data/faqs';
+import { Settings, Plus } from 'lucide-react';
 import './Help.css';
 
 const Help = () => {
   const navigate = useNavigate();
-  const [openCategory, setOpenCategory] = useState<string | null>("General");
-  const [openQ, setOpenQ] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'FAQS' | 'COMPLAINTS'>('FAQS');
 
-  const toggleCategory = (cat: string) => {
-    setOpenCategory(openCategory === cat ? null : cat);
+  const handleComplaint = () => {
+    navigate('/complaint');
   };
 
-  const toggleQ = (q: string) => {
-    setOpenQ(openQ === q ? null : q);
+  const faqs = {
+    "General": [
+      "ETM Related issue"
+    ],
+    "Driver": [
+      "Rash Driving",
+      "Not stopping the bus at stop",
+      "Driving the bus slow or fast",
+      "Late arrival or departure of the Bus",
+      "Wrong route",
+      "Driver not allowed Ladies/Sr. Citizens to board from the front gate",
+      "Driver misbehave"
+    ],
+    "Conductor": [
+      "The conductor refused to give a complaint book",
+      "Conductor misbehave",
+      "Conductor not issuing the ticket after taking fare",
+      "Excess fare charged"
+    ]
   };
 
   return (
-    <div className="page-container page-help">
-      <div className="route-header">
-        <h2>Help & Support</h2>
+    <div className="page-help">
+      <div className="help-gradient-header">
+        <div className="help-logo">METROGO</div>
+        <Settings size={24} className="help-settings-icon" onClick={() => navigate('/settings')} />
       </div>
 
-      <div className="help-content">
-        <button className="btn btn-primary btn-large w-full mb-4" onClick={() => navigate('/complaint')}>
-          <MessageSquare size={18} className="mr-2" /> Raise New Complaint
-        </button>
-        
-        <h3>Frequently Asked Questions</h3>
-        
-        <div className="faq-container mt-3">
-          {FAQS.map(category => (
-            <div key={category.category} className="faq-category">
-              <div 
-                className="faq-cat-header" 
-                onClick={() => toggleCategory(category.category)}
-              >
-                <span>{category.category}</span>
-                {openCategory === category.category ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-              </div>
-              
-              {openCategory === category.category && (
-                <div className="faq-questions">
-                  {category.questions.map(item => (
-                    <div key={item.q} className="faq-item">
-                      <div 
-                        className="faq-q" 
-                        onClick={() => toggleQ(item.q)}
-                      >
-                        <span>{item.q}</span>
-                        {openQ === item.q ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                      </div>
-                      {openQ === item.q && (
-                        <div className="faq-a">
-                          {item.a}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+      <div className="help-tabs-row">
+        <div 
+          className={`help-tab ${activeTab === 'FAQS' ? 'active' : ''}`}
+          onClick={() => setActiveTab('FAQS')}
+        >
+          FAQs
         </div>
+        <div 
+          className={`help-tab ${activeTab === 'COMPLAINTS' ? 'active' : ''}`}
+          onClick={() => setActiveTab('COMPLAINTS')}
+        >
+          My Complaints
+        </div>
+      </div>
+
+      <div className="help-content-scroll">
+        {activeTab === 'FAQS' ? (
+          <>
+            <div className="help-page-title">FAQs</div>
+            
+            {Object.entries(faqs).map(([category, items]) => (
+              <div key={category}>
+                <div className="faq-cat-title">{category}</div>
+                {items.map((item, idx) => (
+                  <div key={idx} className="faq-item-row">
+                    <div className="faq-item-text">{item}</div>
+                    <div className="faq-plus-icon"><Plus size={14} strokeWidth={3} /></div>
+                  </div>
+                ))}
+              </div>
+            ))}
+
+            <div className="help-footer-section">
+              <span className="help-cant-find">Can't find what you're looking for?</span>
+              <button className="btn-raise-complaint" onClick={handleComplaint}>
+                Raise New Complaint
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="text-center mt-8 text-gray-500">
+            No complaints found.
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,83 +1,85 @@
 import React, { useState } from 'react';
-import { Search, Zap, ParkingCircle, Navigation } from 'lucide-react';
-import { EV_STATIONS, PARKING_SPOTS } from '../data/faqs';
+import { Search, MapPin, Filter, Navigation, Car, BatteryCharging } from 'lucide-react';
 import MapFallback from '../components/MapFallback';
 import './Hub.css';
 
 const Hub = () => {
   const [activeTab, setActiveTab] = useState<'EV' | 'PARKING'>('EV');
 
+  // Hardcoded exact data from the screenshot
+  const evStations = [
+    {
+      id: 1,
+      title: "REIL",
+      badge: "NA/4 AVAIL",
+      distance: "6.21 KM",
+      subtitle: "Nizamuddin Railway station",
+      boxTitle: "Bharat DC 001",
+      boxStatus: "NA"
+    },
+    {
+      id: 2,
+      title: "REIL",
+      badge: "NA/2 AVAIL",
+      distance: "7.05 KM",
+      subtitle: "Ashram Chowk Mathura Road",
+      boxTitle: "Bharat DC 001",
+      boxStatus: "NA"
+    }
+  ];
+
   return (
-    <div className="page-container page-hub">
-      <MapFallback height="180px" />
-      
-      <div className="tab-toggle">
-        <button 
-          className={`tab-btn ${activeTab === 'EV' ? 'active' : ''}`}
-          onClick={() => setActiveTab('EV')}
-        >
-          <Zap size={16} className="inline-icon" /> EV Stations
-        </button>
-        <button 
-          className={`tab-btn ${activeTab === 'PARKING' ? 'active' : ''}`}
-          onClick={() => setActiveTab('PARKING')}
-        >
-          <ParkingCircle size={16} className="inline-icon" /> Parking Spots
-        </button>
+    <div className="page-hub">
+      <div className="hub-gradient-header">
+        <div className="hub-logo">METROGO</div>
+        <div className="hub-search-bar">
+          <Search size={20} color="white" />
+          <span>Search 0+ charge points</span>
+        </div>
       </div>
 
-      <div className="hub-content">
-        <div className="search-input-wrapper mb-4">
-          <Search size={20} color="var(--text-secondary)" />
-          <input
-            type="text"
-            className="search-input"
-            placeholder={`Search ${activeTab === 'EV' ? 'EV charging points' : 'parking locations'}`}
-          />
+      <div className="map-container-hub">
+        <MapFallback height="100%" />
+        <div className="hub-floating-actions">
+          <button className="hub-float-btn"><Filter size={20} /></button>
+          <button className="hub-float-btn"><MapPin size={20} /></button>
+        </div>
+      </div>
+
+      <div className="hub-bottom-sheet">
+        <div className="hub-tabs">
+          <button 
+            className={`hub-tab-btn ${activeTab === 'EV' ? 'active-ev' : 'inactive'}`}
+            onClick={() => setActiveTab('EV')}
+          >
+            <BatteryCharging size={18} /> EV Stations
+          </button>
+          <button 
+            className={`hub-tab-btn ${activeTab === 'PARKING' ? 'active-ev' : 'inactive'}`}
+            onClick={() => setActiveTab('PARKING')}
+          >
+            Parking Spots
+          </button>
         </div>
 
-        {activeTab === 'EV' ? (
-          <div className="list-container">
-            {EV_STATIONS.map(station => (
-              <div key={station.id} className="hub-card card">
-                <div className="hub-card-top">
-                  <div className="hub-title">{station.name}</div>
-                  <div className="hub-distance">{station.distance}</div>
+        {activeTab === 'EV' && (
+          <div className="hub-scroll-list">
+            {evStations.map(station => (
+              <div key={station.id} className="hub-card-item">
+                <div className="hc-top-row">
+                  <span className="hc-title">{station.title}</span>
+                  <span className="hc-badge-green">{station.badge}</span>
+                  <span className="hc-badge-red">{station.distance}</span>
+                  <Navigation size={16} className="hc-arrow" style={{ transform: 'rotate(45deg)' }} />
                 </div>
-                <div className="hub-card-middle">
-                  <span className={`availability ${station.availability.includes('available') ? 'available' : 'occupied'}`}>
-                    {station.availability}
-                  </span>
+                <div className="hc-subtitle">{station.subtitle}</div>
+                <div className="hc-grey-box">
+                  <span className="hc-gb-title">{station.boxTitle}</span>
+                  <span className="hc-gb-status">{station.boxStatus}</span>
                 </div>
-                <div className="hub-card-bottom">
-                  <div>Type: {station.type}</div>
-                  <div>Support: {station.support}</div>
+                <div className="hc-supports">
+                  Supports: <Car size={16} />
                 </div>
-                <button className="btn-outline hub-nav-btn mt-3">
-                  <Navigation size={16} /> Navigate
-                </button>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="list-container">
-            {PARKING_SPOTS.map(spot => (
-              <div key={spot.id} className="hub-card card">
-                <div className="hub-card-top">
-                  <div className="hub-title">{spot.name}</div>
-                  <div className="hub-distance">{spot.distance}</div>
-                </div>
-                <div className="hub-card-middle">
-                  <span className="availability available">
-                    {spot.slots} slots available
-                  </span>
-                </div>
-                <div className="hub-card-bottom">
-                  <div>Price: {spot.price}</div>
-                </div>
-                <button className="btn-outline hub-nav-btn mt-3">
-                  <Navigation size={16} /> Navigate
-                </button>
               </div>
             ))}
           </div>
